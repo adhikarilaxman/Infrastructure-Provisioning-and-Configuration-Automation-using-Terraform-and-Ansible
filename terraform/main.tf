@@ -13,10 +13,13 @@ data "aws_vpc" "default" {
 }
 
 # -----------------------------
-# Fetch Default Subnets
+# Fetch Subnets in Default VPC
 # -----------------------------
-data "aws_subnet_ids" "default_subnets" {
-  vpc_id = data.aws_vpc.default.id
+data "aws_subnets" "default" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.default.id]
+  }
 }
 
 # -----------------------------
@@ -63,7 +66,7 @@ resource "aws_instance" "devops_server" {
   instance_type = var.instance_type
   key_name      = var.key_name
 
-  subnet_id = data.aws_subnet_ids.default_subnets.ids[0]
+  subnet_id = data.aws_subnets.default.ids[0]
 
   vpc_security_group_ids = [aws_security_group.devops_sg.id]
 
