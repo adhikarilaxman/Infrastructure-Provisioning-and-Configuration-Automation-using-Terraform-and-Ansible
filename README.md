@@ -105,6 +105,8 @@ terraform-ansible-project/
 │   ├── variables.tf
 │   ├── outputs.tf
 │
+├── screenshots/
+│
 ├── ansible/
 │   ├── inventory.ini
 │   ├── playbook.yml
